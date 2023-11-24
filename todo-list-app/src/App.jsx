@@ -1,49 +1,57 @@
-import { useState } from 'react'
-import './App.css'
-import { Box, ChakraProvider, Flex, Button, Spacer, ButtonGroup, Checkbox, Text } from '@chakra-ui/react'
-import { Center, Heading } from '@chakra-ui/react'
+import React, { useState, useEffect } from 'react';
+import { Box, Spacer, Center, Flex } from '@chakra-ui/react';
+import { TaskForm } from './Components/TaskForm/TaskForm';
+import Header from './Components/Header/Header';
+
+export const App = () => {
+  const [tasks, setTasks] = useState(() => {
+    const storedTasks = localStorage.getItem('tasks');
+    return storedTasks ? JSON.parse(storedTasks) : [];
+  });
 
 
-function App() {
-  const [count, setCount] = useState(0)
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
+
+  // const TaskCompleted = (taskId, isCompleted) => {
+  //   const updatedTasks = tasks.map((task) =>
+  //     task.id === taskId ? { ...task, completed: isCompleted } : task
+  //   );
+  //   setTasks(updatedTasks);
+  // };
+
+  // const DeleteTask = (taskId) => {
+  //   const updatedTasks = tasks.filter((task) => task.id !== taskId);
+  //   setTasks(updatedTasks);
+  // };
+
+  const addTask = (taskName) => {
+    const newTask = {
+      id: new Date().getTime(),
+      name: taskName,
+      completed: false,
+    };
+    setTasks([...tasks, newTask]);
+    setActionPerformed(true);
+  };
 
   return (
-    <ChakraProvider>
-      <Box >
-        <Heading mb={12}>TP F- Grupo J</Heading>
-
-        <Box>
-          {/* Todo - Header */}
-          <Flex minWidth='max-content' alignItems='center' gap='2' m={8} p={4} mb={0} bg={'gray'}>
-            <Box p='2'>
-              <Heading size='md' color={'white'}>Chakra App</Heading>
-            </Box>
-            <Spacer />
-            <ButtonGroup gap='2'>
-              <Button colorScheme='teal'>+</Button>
-            </ButtonGroup>
-          </Flex>
-          {/* Todo - Body */}
-          <Flex border='1px' borderColor='gray.200' mx={8} p={4}>
-            <Checkbox colorScheme='green' py={2} px={4} defaultChecked></Checkbox>
-            <Center>
-              <Text fontSize='lg'>Throw away my books</Text>
-            </Center>
-          </Flex>
-
-          <Flex border='1px' borderColor='gray.200' mx={8} p={4}>
-            <Checkbox colorScheme='green' py={2} px={4}></Checkbox>
-            <Text fontSize='lg'>Love with React</Text>
-          </Flex>
-
-          <Flex border='1px' borderColor='gray.200' mx={8} p={4}>
-            <Checkbox colorScheme='green' py={2} px={4} ></Checkbox>
-            <Text fontSize='lg'>War against Chakra UI</Text>
-          </Flex>
-        </Box>
+    <>
+    <Header />
+    <Center height="60vh">
+      <Box  p={4} mt={4} bg="white" color="white">
+        <Flex minWidth='max-content' alignItems='center' gap='2'>
+        </Flex>
+        <Spacer />
+        <TaskForm onAddTask={addTask} />
+        {/* <TaskList
+          tasks={tasks}
+          onTaskCompleted={TaskCompleted}
+          onDeleteTask={DeleteTask}
+        /> */}
       </Box>
-    </ChakraProvider>
-  )
-}
-
-export default App
+    </Center>
+    </>
+  );
+};
