@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Spacer, Center, Flex } from '@chakra-ui/react';
+import { TaskList } from './Components/TaskList/TaskList';
 import { TaskForm } from './Components/TaskForm/TaskForm';
 import Header from './Components/Header/Header';
 
@@ -14,44 +15,46 @@ export const App = () => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
 
-  // const TaskCompleted = (taskId, isCompleted) => {
-  //   const updatedTasks = tasks.map((task) =>
-  //     task.id === taskId ? { ...task, completed: isCompleted } : task
-  //   );
-  //   setTasks(updatedTasks);
-  // };
+  const completedTask = (taskId, isCompleted) => {
+    const updatedTasks = tasks.map((task) =>
+      task.id === taskId ? { ...task, completed: isCompleted } : task
+    );
+    setTasks(updatedTasks);
+    
+    
+  };
 
-  // const DeleteTask = (taskId) => {
-  //   const updatedTasks = tasks.filter((task) => task.id !== taskId);
-  //   setTasks(updatedTasks);
-  // };
+  const deleteTask = (taskId) => {
+    const updatedTasks = tasks.filter((task) => task.id !== taskId);
+    setTasks(updatedTasks);
+  };
 
-  const addTask = (taskName) => {
+  const handleAddTask = (taskName) => {
     const newTask = {
       id: new Date().getTime(),
       name: taskName,
       completed: false,
     };
     setTasks([...tasks, newTask]);
-    setActionPerformed(true);
   };
 
   return (
     <>
-    <Header />
-    <Center height="60vh">
-      <Box  p={4} mt={4} bg="white" color="white">
-        <Flex minWidth='max-content' alignItems='center' gap='2'>
-        </Flex>
-        <Spacer />
-        <TaskForm onAddTask={addTask} />
-        {/* <TaskList
-          tasks={tasks}
-          onTaskCompleted={TaskCompleted}
-          onDeleteTask={DeleteTask}
-        /> */}
+      <Header />
+      <Box mt={8}>
+      <Center>
+        <Box p={4} mt={4} bg="beige" color="white" maxW="500px" w="100%">
+          <Flex flexDirection="column" alignItems="stretch">
+            <TaskForm onAddTask={handleAddTask} />
+            <TaskList
+              tasks={tasks}
+              onTaskCompleted={completedTask}
+              onDeleteTask={deleteTask}
+            />
+          </Flex>
+        </Box>
+      </Center>
       </Box>
-    </Center>
     </>
   );
 };
