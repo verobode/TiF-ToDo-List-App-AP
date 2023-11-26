@@ -1,0 +1,14 @@
+.task-item-container {
+    position: relative;
+  }
+  
+  /* .task-item-divider {
+    position: absolute;
+    top: 8px; 
+    bottom: 8px; 
+    left: 50%;
+    border-left: 1px solid red;
+    transform: translateX(-50%);
+    z-index: -1;
+  }
+   */
