@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Flex,
   Input,
@@ -11,30 +11,35 @@ import { AddIcon } from "@chakra-ui/icons";
 export const TaskForm = ({ onAddTask }) => {
   const [taskName, setTaskName] = useState("");
 
-  const inputUser = (e) => {
+  const userInput = (e) => {
     setTaskName(e.target.value);
   };
 
-  const enSubmit = (e) => {
+  const useSubmit = (e) => {
     e.preventDefault();
-    onAddTask(taskName);
-    setTaskName("");
+    if (taskName.trim() !== "") {
+      onAddTask(taskName);
+      setTaskName("");
+      //Condición para limpiar el input
+    }
   };
 
-  console.log(taskName); //Para que vean en consola que funciona el agregar una tarea
+  useEffect(() => {
+    setTaskName(""); // Se limpia el input al agregar una tarea
+  }, [onAddTask]);
+  
 
   return (
-    <Flex as="form" onSubmit={enSubmit} alignItems="center">
-      <InputGroup flex="7" m={0}>
+    <Flex as="form" onSubmit={useSubmit} alignItems="center">
+      <InputGroup flex="12" mt={0}>
         <Input
           type="text"
-          color='white'
           placeholder="Todo List"
           value={taskName}
-          onChange={inputUser}
+          onChange={userInput}
           bgColor="gray.900"
           border='none'
-          _placeholder={{ color: 'white' }} 
+          _placeholder={{ color: 'white' }}
         />
         <InputRightElement>
           <IconButton
