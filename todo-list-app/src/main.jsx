@@ -13,7 +13,7 @@ const theme = extendTheme({
       body: {
         height: "100%",
         margin: 0,
-        bg: "gray.600",
+        bg: "gray.400",
       },
     },
   },

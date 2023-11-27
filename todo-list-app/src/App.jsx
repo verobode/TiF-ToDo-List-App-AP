@@ -3,6 +3,7 @@ import { Box, Spacer, Center, Flex } from '@chakra-ui/react';
 import { TaskList } from './Components/TaskList/TaskList';
 import { TaskForm } from './Components/TaskForm/TaskForm';
 import Header from './Components/Header/Header';
+import Footer from './Components/Footer/Footer';
 
 export const App = () => {
   const [tasks, setTasks] = useState(() => {
@@ -41,9 +42,9 @@ export const App = () => {
   return (
     <>
       <Header />
-      <Box mt={8}>
+      <Box mt={8}> 
       <Center>
-        <Box p={4} mt={4} bg="beige" color="white" maxW="500px" w="100%">
+        <Box p={4} mt={4} bg="white" color="white" maxW="500px" w="100%" borderRadius='10px'>
           <Flex flexDirection="column" alignItems="stretch">
             <TaskForm onAddTask={handleAddTask} />
             <TaskList
@@ -55,6 +56,7 @@ export const App = () => {
         </Box>
       </Center>
       </Box>
+      <Footer />
     </>
   );
 };

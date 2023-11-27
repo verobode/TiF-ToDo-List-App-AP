@@ -35,6 +35,7 @@ export const TaskForm = ({ onAddTask }) => {
         <Input
           type="text"
           placeholder="Todo List"
+          color='white'
           value={taskName}
           onChange={userInput}
           bgColor="gray.900"
