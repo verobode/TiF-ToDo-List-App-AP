@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Text, Checkbox, Button, IconButton} from '@chakra-ui/react'
+import { Flex, Text, Checkbox, Button } from '@chakra-ui/react'
 import { DeleteIcon } from '@chakra-ui/icons';
 import { TaskItem } from '../TaskItem/TaskItem';
 
@@ -9,10 +9,11 @@ export const TaskList = ({ tasks, onTaskCompleted, onDeleteTask }) => {
 
     return (
         <>
-      <Text mt="20px" fontWeight="bold" color="black">
-        My Tasks:
+        <Flex flexDirection="column" mt={1} borderLeft="1px solid red" paddingLeft="10px">
+      <Text mt="25px" fontWeight="bold" color="black" borderBottom="1px solid lightgray">
+        Mis Tareas:
       </Text>
-      <Flex flexDirection="column" mt={4}>
+      <Flex flexDirection="column" mt={0}>
         {pendingTasks.map((task) => (
           <TaskItem
             key={task.id}
@@ -22,10 +23,10 @@ export const TaskList = ({ tasks, onTaskCompleted, onDeleteTask }) => {
           />
         ))}
       </Flex>
-      <Text mt="20px" fontWeight="bold" color="black">
-        Completed Tasks:
+      <Text mt="25px" fontWeight="bold" color="black" borderBottom="1px solid lightgray">
+        Mis tareas completadas:
       </Text>
-      <Flex flexDirection="column" mt={4}>
+      <Flex flexDirection="column" mt={1}>
                 {completedTasks.map((task) => (
                     <Flex
                         key={task.id}
@@ -33,7 +34,7 @@ export const TaskList = ({ tasks, onTaskCompleted, onDeleteTask }) => {
                         color="black"
                         justifyContent="space-between"
                         mt={2}
-                        borderBottom="1px solid lightgray" // La linea entre las tareas completas
+                        borderBottom="1px solid lightgray" //linea gris entre las tareas completas
                         pb={2}
                     >
                         <Flex alignItems="center">
@@ -55,6 +56,7 @@ export const TaskList = ({ tasks, onTaskCompleted, onDeleteTask }) => {
                         ></Button>
           </Flex>
         ))}
+        </Flex>
       </Flex>
     </>
     );

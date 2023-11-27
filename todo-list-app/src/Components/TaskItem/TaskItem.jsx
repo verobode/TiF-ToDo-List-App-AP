@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkbox, Text, Button, Flex } from '@chakra-ui/react';
+import { Checkbox, Text, Button, Flex} from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
 import './TaskItem.css';
 
